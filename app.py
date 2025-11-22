@@ -9,7 +9,7 @@ from typing import Optional, Dict, Any
 
 # --- CONFIGURATION ---
 CONFIG = {
-    "MODEL_NAME": "gemini-1.5-flash",
+    "MODEL_NAME": "gemini-2.0-flash",
     "MAX_FILE_SIZE_MB": 50,
     "UPLOAD_TIMEOUT_SECONDS": 120,
     "SUPPORTED_MIME_TYPES": {
