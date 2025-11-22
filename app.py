@@ -88,15 +88,15 @@ def validate_file(uploaded_file) -> tuple[bool, str]:
 def upload_file_to_gemini(file_path: str, mime_type: str) -> Any:
         uploaded_file = genai.upload_file(file_path, mime_name=mime_type)
         start_time = time.time()
-    with st.spinner('Processing file upload...'):
-        while uploaded_file.state.name == "PROCESSING":
-            if time.time() - start_time > CONFIG["UPLOAD_TIMEOUT_SECONDS"]:
-                raise TimeoutError(f"Upload timed out after {CONFIG['UPLOAD_TIMEOUT_SECONDS']} seconds")
-            time.sleep(1)
-            uploaded_file = genai.get_file(uploaded_file.name)
-    if uploaded_file.state.name == "FAILED":
-        raise ValueError("File upload failed in Gemini API")
-    return uploaded_file
+        with st.spinner('Processing file upload...'):
+            while uploaded_file.state.name == "PROCESSING":
+                    if time.time() - start_time > CONFIG["UPLOAD_TIMEOUT_SECONDS"]:
+                            raise TimeoutError(f"Upload timed out after {CONFIG['UPLOAD_TIMEOUT_SECONDS']} seconds")
+                    time.sleep(1)
+                    uploaded_file = genai.get_file(uploaded_file.name)
+        if uploaded_file.state.name == "FAILED":
+                raise ValueError("File upload failed in Gemini API")
+        return uploaded_file
 
 def generate_analysis_prompt(platform: str) -> str:
     platform_focus = CONFIG["SUPPORTED_PLATFORMS"].get(platform, "")
