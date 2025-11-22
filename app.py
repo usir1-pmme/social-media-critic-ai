@@ -85,8 +85,9 @@ def validate_file(uploaded_file) -> tuple[bool, str]:
         return False, f"Unsupported file type: {ext}"
     return True, ""
 
-def upload_file_to_gemini(file_path: str, mime_type: str) -> Any:    uploaded_file = genai.upload_file(file_path, mime_type=mime_type)
-    start_time = time.time()
+def upload_file_to_gemini(file_path: str, mime_type: str) -> Any:
+        uploaded_file = genai.upload_file(file_path, mime_name=mime_type)
+        start_time = time.time()
     with st.spinner('Processing file upload...'):
         while uploaded_file.state.name == "PROCESSING":
             if time.time() - start_time > CONFIG["UPLOAD_TIMEOUT_SECONDS"]:
